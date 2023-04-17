@@ -1,6 +1,13 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 
+
+class Image(models.Model):
+    image = models.ImageField(upload_to="image")
+    def __str__(self):
+        return self.image.name
+
+
 class Fakultet(models.Model):
     fakultet = models.CharField(max_length=100, null=True, blank=True, verbose_name='Fakultet')
 
@@ -54,6 +61,7 @@ class Talaba(models.Model):
     first_name = models.CharField(max_length=30, verbose_name='Ism')
     last_name = models.CharField(max_length=30, verbose_name='Familiya')
     manzil = models.CharField(max_length=150, verbose_name='Manzil')
+    image = models.ManyToManyField(to=Image, null=True)
     daraja = models.CharField(max_length=10, default=True, choices=DARAJA)
     kurs = models.CharField(max_length=2, choices=KURS, verbose_name='Kurs')
     guruh_n = models.CharField(max_length=15, verbose_name='Guruh nomeri')
